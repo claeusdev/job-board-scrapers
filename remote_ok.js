@@ -1,6 +1,6 @@
 const cheerio = require("cheerio");
 const axios = require("axios");
-
+const fs = require("fs")
 
 async function remoteScraper() {
     console.log("Scraper initialized ....\n");
@@ -20,6 +20,7 @@ async function remoteScraper() {
         .each(function(i, el) {
             let id = $(el).data("id");
             box[id] = { link: $(el).data("href"), company: $(el).data("company")};
+            console.log(el)
             $(this)
                 .find("td")
                 .each(function(i, el) {
@@ -45,9 +46,24 @@ async function remoteScraper() {
                 box[$(this).data("id")]["description"] = $(this).find(".description").text()
             })
 
+    
+
+
     console.log(JSON.stringify(box, undefined, 2));
+    fs.writeFile("./remote_ok.json", JSON.stringify(box), (err) => {
+        if (err) {
+            console.error(err);
+            return;
+        };
+        console.log("File has been created");
+    });
+
+
     return box
 }
+
+
+
 
 // run code 
 remoteScraper()
