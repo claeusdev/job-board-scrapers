@@ -25,6 +25,13 @@ async function remoteScraper() {
 		})
 
     console.log(JSON.stringify(box, undefined, 2));
+    fs.writeFile("./unicorn_hunt.json", JSON.stringify(box), (err) => {
+        if (err) {
+            console.error(err);
+            return;
+        };
+        console.log("File has been created");
+    });
     return box
 }
 

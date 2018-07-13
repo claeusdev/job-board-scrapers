@@ -2,6 +2,7 @@ const cheerio = require("cheerio");
 const axios = require("axios");
 const fs = require("fs")
 
+
 async function remoteScraper() {
     console.log("Scraper initialized ....\n");
     // box will contain all your data
@@ -19,8 +20,11 @@ async function remoteScraper() {
         .filter(".job")
         .each(function(i, el) {
             let id = $(el).data("id");
-            box[id] = { link: $(el).data("href"), company: $(el).data("company")};
-            console.log(el)
+            box[id] = {
+                link: `https://remoteok.io/${$(el).data("href")}`,
+                company: $(el).data("company")
+            };
+            // console.log(el)
             $(this)
                 .find("td")
                 .each(function(i, el) {
@@ -49,17 +53,22 @@ async function remoteScraper() {
     
 
 
-    console.log(JSON.stringify(box, undefined, 2));
-    fs.writeFile("./remote_ok.json", JSON.stringify(box), (err) => {
-        if (err) {
-            console.error(err);
-            return;
-        };
-        console.log("File has been created");
-    });
+    // console.log(JSON.stringify(box, undefined, 2));
 
+    const objectKeys = Object.keys(box)
 
-    return box
+    const jobs = []
+
+    objectKeys.map(job => {
+        jobs.push(box[job])
+        }   
+    )
+
+    jobs.map(job => {
+        console.log(job.link, job.company, job.title)
+    })
+
+    // return box
 }
 
 

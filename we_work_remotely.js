@@ -24,6 +24,13 @@ async function remoteScraper() {
     })
     
     console.log(JSON.stringify(box, undefined, 2));
+    fs.writeFile("./wework.json", JSON.stringify(box), (err) => {
+        if (err) {
+            console.error(err);
+            return;
+        };
+        console.log("File has been created");
+    });
     return box
 }
 
