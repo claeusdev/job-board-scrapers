@@ -10,7 +10,8 @@ app.use(parser.urlencoded({
     extended: true
 }));
 
-app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/', (req, res) =>  res.send(jobs)
+)
 app.get('/remote-ok', (req, res) => {
     res.send(remote)
 })
