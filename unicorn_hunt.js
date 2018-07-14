@@ -1,6 +1,6 @@
 const cheerio = require("cheerio");
 const axios = require("axios");
-
+const fs = require("fs")
 
 async function remoteScraper() {
     console.log("Scraper initialized ....\n");
@@ -24,8 +24,16 @@ async function remoteScraper() {
 		  box[$(this).data("reactid")]["location"] = $(this).find(".job-overview__rough-location").text()
 		})
 
-    console.log(JSON.stringify(box, undefined, 2));
-    fs.writeFile("./unicorn_hunt.json", JSON.stringify(box), (err) => {
+    // console.log(JSON.stringify(box, undefined, 2));
+
+    const objectKeys = Object.keys(box)
+
+    const jobs = []
+
+    objectKeys.map(job => {
+        jobs.push(box[job])
+    })
+    fs.writeFile("./unicorn_hunt.json", JSON.stringify(jobs), (err) => {
         if (err) {
             console.error(err);
             return;

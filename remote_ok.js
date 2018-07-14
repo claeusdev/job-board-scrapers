@@ -1,7 +1,6 @@
 const cheerio = require("cheerio");
 const axios = require("axios");
-const fs = require("fs")
-
+const writeToFile = require('./writeToFIle')
 
 async function remoteScraper() {
     console.log("Scraper initialized ....\n");
@@ -50,25 +49,8 @@ async function remoteScraper() {
                 box[$(this).data("id")]["description"] = $(this).find(".description").text()
             })
 
-    
 
-
-    // console.log(JSON.stringify(box, undefined, 2));
-
-    const objectKeys = Object.keys(box)
-
-    const jobs = []
-
-    objectKeys.map(job => {
-        jobs.push(box[job])
-        }   
-    )
-
-    jobs.map(job => {
-        console.log(job.link, job.company, job.title)
-    })
-
-    // return box
+    writeToFile(box)
 }
 
 
