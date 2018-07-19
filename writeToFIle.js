@@ -4,17 +4,17 @@ const fs = require("fs")
 
 const writeToFile = (array) => {
     const objectKeys = Object.keys(array)
-
     const jobs = []
-
+    const juniorJobs = []
     objectKeys.map(job => {
         jobs.push(array[job])
     })
-
-    const juniorJobs = []
-
     jobs.map(job => {
-        if (job.title.includes("Junior")) {
+        if (job.title) {
+            if (job.title.includes("Junior")) {
+                juniorJobs.push(job)
+            }
+        } else if (job.name.includes("Junior")){
             juniorJobs.push(job)
         }
     })

@@ -1,7 +1,5 @@
 const express = require('express')
 const app = express()
-const cheerio = require("cheerio");
-const axios = require("axios");
 const parser = require("body-parser")
 const remote = require('./remote_ok.json')
 

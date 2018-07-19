@@ -2,14 +2,13 @@ const cheerio = require("cheerio");
 const axios = require("axios");
 const fs = require("fs")
 
-
 async function remoteScraper() {
     console.log("Scraper initialized ....\n");
     // box will contain all your data
     const box = [];
     // get markup
     console.log("fetching markup from We Work Remotely\n");
-    const response = await axios.get("https://weworkremotely.com/categories/remote-programming-jobs");
+    const response = await axios.get("https://weworkremotely.com");
     const html = response.data;
     // pass html to cheerio
     console.log("markup returned, parsing ,,,,,");
@@ -24,7 +23,6 @@ async function remoteScraper() {
         })
     })
     
-    console.log(JSON.stringify(box, undefined, 2));
     fs.writeFile("./wework.json", JSON.stringify(box), (err) => {
         if (err) {
             console.error(err);
@@ -33,6 +31,8 @@ async function remoteScraper() {
         console.log("File has been created");
     });
     return box
+
+    
 }
 
 // run code 

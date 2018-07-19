@@ -8,7 +8,7 @@ async function remoteScraper() {
     const box = {}
     // get markup
     console.log("fetching markup from RemoteOK\n");
-    const response = await axios.get("https://remoteok.io/remote-junior-jobs");
+    const response = await axios.get("https://remoteok.io");
     const html = response.data;
     // pass html to cheerio
     console.log("markup returned, parsing ,,,,,");
@@ -48,13 +48,8 @@ async function remoteScraper() {
             .each(function(x, y) {
                 box[$(this).data("id")]["description"] = $(this).find(".description").text()
             })
-
-
     writeToFile(box)
 }
-
-
-
 
 // run code 
 remoteScraper()
